@@ -29,6 +29,17 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
+	"\/assets\/vue_2.5.13\/vue.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/assets\/vue_2.5.13\/vue.js",
+		"outputAbbreviatedPath": "\/assets\/vue_2.5.13\/min\/vue-min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 1
+		},
 	"\/assets\/vue_2.5.13\/vue.min.js": {
 		"fileType": 64,
 		"ignore": 0,

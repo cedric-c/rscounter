@@ -3,3 +3,12 @@
     line-height: 52px;
     padding-top:40px;
 }
+.counter{
+    /*display: inline;*/
+    float:left;
+    list-style: none;
+}
+
+.counterReady{
+    color: #8FC31F;
+}
