@@ -7,8 +7,35 @@
     /*display: inline;*/
     float:left;
     list-style: none;
+    border-radius: 3px;
+    padding: 4px;
+    margin: 6px;
 }
 
-.counterReady{
-    color: #8FC31F;
+.counter5{background-color: #E60033;}
+.counter4{background-color: #E86100;}
+.counter3{background-color: #F39800;}
+.counter2{background-color: #FFF100;}
+.counter1{background-color: #CFDB00;}
+.counter0{background-color: #8FC31F;}
+
+.counter:hover{
+    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+}
+
+/* is member world */
+.valueMembers{
+    
+}
+/* timer */
+.valueTimer{
+    font-size: 2.1em;
+}
+
+.valueStatus{
+    
+}
+/* world number */
+.valueNumber{
+    
 }

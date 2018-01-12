@@ -10,7 +10,37 @@ var data = {
     number: 2,
     timer: 60,
     status: 'ready',
-    worlds: [],
+    worlds: [{
+        members: true,
+        timer: 0,
+        status:'waiting',
+        number:1,
+    },{
+        members: true,
+        timer: 1,
+        status:'soon',
+        number:2,
+    },{
+        members: false,
+        timer: 2,
+        status:'ready',
+        number:3,
+    },{
+        members: false,
+        timer: 3,
+        status:'ready',
+        number:4,
+    },{
+        members: false,
+        timer: 4,
+        status:'ready',
+        number:4,
+    },{
+        members: false,
+        timer: 5,
+        status:'ready',
+        number:4,
+    }],
     myClass:{
         '1': self.timer == 60,
         '3': this.timer > 10 && this.timer < 30,
@@ -18,29 +48,59 @@ var data = {
     },
 };
 
-var RSCounterComponent = Vue.extend({
+Vue.component('worlds-component',{
     data: function(){
         return data;
     },
-    methods: {
-        getClass: function(){
-            return 'counter';
-        },
-    },    
     template:
     '<ul>'+
-        '<li class="counter" v-for="world in worlds">'+
-            '<div :class="myClass">'+
-                '<label>Member: {{world.members}}</label>'+
-                '<label>Time: {{world.timer}}</label>'+
-                '<label>Status: {{world.status}}</label>'+
-                '<label>Number: {{world.number}}</label>'+
-            '</div>'+
-        '</li>'+
+        '<counter-component v-for="world in worlds" :data="world" :key="world.id"></counter-component>'+
     '</ul>'
 });
 
-var ActionBarComponent = Vue.extend({
+Vue.component('counter-component',{
+    props:['data'],
+    data: function() {
+        return {
+            members: data.members,
+            timer: data.timer,
+            status: data.status,
+            number: data.number,
+        };
+    },
+    methods:{
+        startTimer: function(){
+            console.log(this.data.members);
+        },
+    },
+    computed:{
+        getClass: function(){
+            // return 'counterReady counter';
+            if(this.data.timer == 0){
+                return 'counter0 counter';
+            } else if(this.data.timer == 1){
+                return 'counter1 counter';
+            } else if(this.data.timer == 2){
+                return 'counter2 counter';                
+            } else if(this.data.timer == 3){
+                return 'counter3 counter';                
+            } else if(this.data.timer == 4){
+                return 'counter4 counter';
+            } else {
+                return 'counter5 counter';
+            }                
+        },
+    }, 
+    template:
+        '<li :class="getClass" v-on:click="startTimer">'+
+            '<label>Member:</label> <p class="valueMembers">{{data.members}}</p>'+
+            '<label>Time:</label> <p class="valueTimer">{{data.timer}}</p>'+
+            '<label>Status:</label> <p class="valueStatus">{{data.status}}</p>'+
+            '<label>Number:</label> <p class="valueNumber">{{data.number}}</p>'+
+        '</li>'
+});
+
+Vue.component('action-bar-component',{
     data: function(){
         return data;
     },
@@ -62,6 +122,9 @@ var ActionBarComponent = Vue.extend({
             this.worlds.push(world);
             this.clear();
         },
+        incrementCounter: function(){
+            this.timer++;
+        },
         
     },
   template:
@@ -73,13 +136,11 @@ var ActionBarComponent = Vue.extend({
     '<div class="col-sm-2"><input v-model="status" @keyup.enter="addWorld" placeholder="status" type="text" class="form-control"></div>'+
     '<div class="col-sm-2"><span class="input-group-btn">'+
     '  <button @click="addWorld" class="btn btn-default" type="button">+</button>'+
+    '  <button @click="incrementCounter" class="btn btn-default" type="button">+</button>'+
     '</span></div>'+
   '</div>'//+
   // '</div>'
 });
-
-Vue.component('counter-component', RSCounterComponent);
-Vue.component('action-bar-component', ActionBarComponent);
 
 var vue = new Vue({
     el:'#app',
