@@ -1,14 +1,10 @@
-"use strict";
+// "use strict";
 
 
 var data = {
-    oreCount: '',
-    nextWorld: 1,
-    message: '',
-    counters: 1,
     members: true,
     number: 2,
-    timer: 60,
+    timer: 3601,
     status: 'ready',
     worlds: [{
         members: true,
@@ -41,11 +37,6 @@ var data = {
         status:'ready',
         number:4,
     }],
-    myClass:{
-        '1': self.timer == 60,
-        '3': this.timer > 10 && this.timer < 30,
-        '5': this.timer > 30,
-    },
 };
 
 Vue.component('worlds-component',{
@@ -71,6 +62,8 @@ Vue.component('counter-component',{
     methods:{
         startTimer: function(){
             console.log(this.data.members);
+            this.data.timer--;
+            this.$emit('toggleTimer');
         },
     },
     computed:{
@@ -95,9 +88,61 @@ Vue.component('counter-component',{
         '<li :class="getClass" v-on:click="startTimer">'+
             '<label>Member:</label> <p class="valueMembers">{{data.members}}</p>'+
             '<label>Time:</label> <p class="valueTimer">{{data.timer}}</p>'+
+            '<timer-component :data="data"></timer-component>'+
+            '<br>'+
             '<label>Status:</label> <p class="valueStatus">{{data.status}}</p>'+
             '<label>Number:</label> <p class="valueNumber">{{data.number}}</p>'+
         '</li>'
+});
+
+Vue.component('timer-component',{
+    props:['data'],
+    // props:['counter', 'hours', 'mins', 'secs'],
+    // , 'counter', 'hours', 'mins', 'secs'
+    data: function(){
+        return {
+            counter: data.timer,
+            // hours: data.timer,
+            // mins: data.timer,
+            // secs:  data.timer,
+            // members: this.members,
+        };
+    },
+    methods:{
+        
+    },
+    computed:{
+        hour:{
+            get: function(){
+                return Math.floor(this.counter / 3600)
+            },
+            set: function(v){
+                this.hours = v;
+            }
+        },
+        minute:{
+            get: function(){
+                return Math.floor(this.counter / 60);
+            },
+            set: function (v){
+                this.mins = v;
+            }
+        },
+        second:{
+            get: function(){
+                return this.counter % 60;
+            },
+            set: function(v){
+                this.secs = v;
+            }
+        },
+    },
+    template: '<span @toggleTimer="" class="timer">'+
+    '{{hour | zeropad}}:'+
+    '{{minute | zeropad}}:'+
+    '{{second | zeropad}}'+
+    '</span>'
+    
 });
 
 Vue.component('action-bar-component',{
@@ -141,6 +186,15 @@ Vue.component('action-bar-component',{
   '</div>'//+
   // '</div>'
 });
+
+Vue.filter('zeropad', (value) => {
+    if(value >= 10){
+        return value;
+    } else {
+        return '0' + value;
+    }
+})
+
 
 var vue = new Vue({
     el:'#app',
