@@ -1,5 +1,5 @@
 .txtb{
-    font-size:40px;
+    font-size:36px;
     line-height: 52px;
     padding-top:40px;
 }
@@ -8,19 +8,46 @@
     float:left;
     list-style: none;
     border-radius: 3px;
-    padding: 4px;
-    margin: 6px;
+    margin: 0.2em;
+    padding: 0.8em;
+    -o-transition:.4s;
+    -ms-transition:.4s;
+    -moz-transition:.4s;
+    -webkit-transition:.4s;
+    /* ...and now for the proper property */
+    transition:.4s;
 }
 
-.counter5{background-color: #E60033;}
+.counter5{
+    color: #E60033;
+    border: 1px solid #E60033;
+    background: rgba(230,0,51,0.1);
+}
 .counter4{background-color: #E86100;}
-.counter3{background-color: #F39800;}
+.counter3{
+    color: #F39800;
+    border: 1px solid #F39800;
+    background: rgba(252,127,0,0.1);
+}
 .counter2{background-color: #FFF100;}
 .counter1{background-color: #CFDB00;}
-.counter0{background-color: #8FC31F;}
+.counter0{
+    color: #4BB022;
+    background: rgba(75,176,34,0.1);
+    border: 1px solid #4BB022
+    
+}
+/*orangetext f4a61a*/
+/*orangeback 4a433b*/
+.counterPrimed{
+    color: #4BB022;
+    background: rgba(75,176,34,0.1);
+    border: 1px solid #4BB022
+    
+}
 
 .counter:hover{
-    box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 100px 100px rgba(126, 126, 126, 0.25);
 }
 
 /* is member world */
@@ -41,5 +68,22 @@
 }
 
 .timer{
-    font-size: 2.1em;
+    font-size: 1.5em;
+}
+
+.worldNumber{
+    margin:0px;
+}
+
+.unsel{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body{
+    background-color:#36393f;
 }

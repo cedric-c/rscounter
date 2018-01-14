@@ -1,42 +1,11 @@
 // "use strict";
-
-
 var data = {
-    members: true,
-    number: 2,
-    timer: 3601,
-    status: 'ready',
-    worlds: [{
-        members: true,
-        timer: 0,
-        status:'waiting',
-        number:1,
-    },{
-        members: true,
-        timer: 1,
-        status:'soon',
-        number:2,
-    },{
-        members: false,
-        timer: 2,
-        status:'ready',
-        number:3,
-    },{
-        members: false,
-        timer: 3,
-        status:'ready',
-        number:4,
-    },{
-        members: false,
-        timer: 4,
-        status:'ready',
-        number:4,
-    },{
-        members: false,
-        timer: 5,
-        status:'ready',
-        number:4,
-    }],
+    // members: null,
+    // number: null,
+    timer: 720,
+    // status: null,
+    worlds: [],
+
 };
 
 Vue.component('worlds-component',{
@@ -51,19 +20,16 @@ Vue.component('worlds-component',{
 
 Vue.component('counter-component',{
     props:['data'],
-    data: function() {
-        return {
-            members: data.members,
-            timer: data.timer,
-            status: data.status,
-            number: data.number,
-        };
-    },
+    // data: function() {
+        // return {
+            // timer: 22,
+        // };
+    // },
     methods:{
         startTimer: function(){
-            console.log(this.data.members);
-            this.data.timer--;
-            this.$emit('toggleTimer');
+            // console.log(data.timer);
+            // data.timer--;
+            this.$emit('toggleTimer', this);
         },
     },
     computed:{
@@ -86,12 +52,11 @@ Vue.component('counter-component',{
     }, 
     template:
         '<li :class="getClass" v-on:click="startTimer">'+
-            '<label>Member:</label> <p class="valueMembers">{{data.members}}</p>'+
-            '<label>Time:</label> <p class="valueTimer">{{data.timer}}</p>'+
+            // '<label>Member:</label> <p class="valueMembers">{{data.members}}</p>'+
+            // '<label>Time:</label> <p class="valueTimer">{{data.timer}}</p>'+
+            '<p class="worldNumber unsel">w{{data.number}}</p>'+
             '<timer-component :data="data"></timer-component>'+
-            '<br>'+
-            '<label>Status:</label> <p class="valueStatus">{{data.status}}</p>'+
-            '<label>Number:</label> <p class="valueNumber">{{data.number}}</p>'+
+            // '<label>Status:</label> <p class="valueStatus">{{data.status}}</p>'+
         '</li>'
 });
 
@@ -101,15 +66,81 @@ Vue.component('timer-component',{
     // , 'counter', 'hours', 'mins', 'secs'
     data: function(){
         return {
-            counter: data.timer,
-            // hours: data.timer,
-            // mins: data.timer,
-            // secs:  data.timer,
-            // members: this.members,
+            counter: 60,
+            counting: false,
+            interval: null,
+            paused: null,
+            clear: false,
+            
         };
     },
+    // mounted() {
+        // setInterval(this.decrease, 1000);
+    // },
     methods:{
-        
+        reset:function(){
+            clearInterval(this.interval);
+            this.counter = 720;
+            this.counting=false;
+            this.interval=null;
+            this.paused=false;
+            this.clear=false;
+            return;
+        },
+        decrease:function(){
+            console.log('decreasing!');
+            var self = this;
+            if(this.counter <= 0){
+                console.log('reached 00:00:00');
+                this.$emit('reachedZero', this);
+                this.counting=false;
+                this.paused=true;
+                clearInterval(this.interval);
+                // this.reset();
+                return;
+            }
+            if(this.paused){
+                console.log('pausing');
+                return;
+            }
+            console.log('setting itnerval');
+            if(self.interval != null){
+                clearInterval(self.interval);
+            }
+            self.interval = setInterval(self.decrease, 1000);
+            this.counter--;
+            return;
+        },
+        activate:function(){
+            console.log('activating');
+            var startCounting = !this.counting && !this.paused;
+            var pauseCounting = this.counting && !this.paused;
+            var resetCounting = !this.counting && this.paused;
+            if(startCounting){
+                console.log('counting');
+                this.counting = true;
+                this.decrease();
+            } else if (pauseCounting){
+                console.log('pausing');
+                this.counting = false;
+                this.paused = true;
+                clearInterval(this.interval);
+                return;
+            } else if (resetCounting) {
+                console.log('resetting');
+                this.reset();
+            } else {
+                console.log('error');
+            }
+            return;
+            // if(self.paused == null){
+                // self.decrease;
+            // }
+        },
+    },
+    created: function(){
+        this.$parent.$on('toggleTimer', this.activate);
+        // this.$parent.$on('toggleTimer', this.decrease);
     },
     computed:{
         hour:{
@@ -137,7 +168,8 @@ Vue.component('timer-component',{
             }
         },
     },
-    template: '<span @toggleTimer="" class="timer">'+
+    template: '<span class="timer unsel">'+
+    // template: '<span v-on:toggleTimer="decrease" class="timer unsel">'+
     '{{hour | zeropad}}:'+
     '{{minute | zeropad}}:'+
     '{{second | zeropad}}'+
@@ -153,7 +185,7 @@ Vue.component('action-bar-component',{
         clear: function(){
             data.members = '';
             data.number  = '';
-            data.timer   = '';
+            // data.timer   = '';
             data.status  = '';
         },
         addWorld: function(){
@@ -161,24 +193,25 @@ Vue.component('action-bar-component',{
             var world = {
                 members: data.members,
                 number: data.number,
-                timer: data.timer,
                 status: data.status,
             };
             this.worlds.push(world);
             this.clear();
         },
         incrementCounter: function(){
-            this.timer++;
+            // this.timer++;
         },
         
     },
   template:
   // '<div class="input-group">'+
   '<div class="row">'+
-    '<div class="col-sm-2"><input v-model="number" @keyup.enter="addWorld" placeholder="world number" type="text" class="form-control"></div>'+
-    '<div class="col-sm-2"><input v-model="timer" @keyup.enter="addWorld" placeholder="timer" type="text" class="form-control"></div>'+
-    '<div class="col-sm-2"><input v-model="members" @keyup.enter="addWorld" placeholder="members" type="text" class="form-control"></div>'+
-    '<div class="col-sm-2"><input v-model="status" @keyup.enter="addWorld" placeholder="status" type="text" class="form-control"></div>'+
+    // '<div class="col-sm-2"><input v-model="number" @keyup.enter="addWorld" placeholder="world number" type="text" class="form-control"></div>'+
+    
+    // '<div class="col-sm-2"><input v-model="timer" @keyup.enter="addWorld" placeholder="timer" type="text" class="form-control"></div>'+
+    
+    // '<div class="col-sm-2"><input v-model="members" @keyup.enter="addWorld" placeholder="members" type="text" class="form-control"></div>'+
+    // '<div class="col-sm-2"><input v-model="status" @keyup.enter="addWorld" placeholder="status" type="text" class="form-control"></div>'+
     '<div class="col-sm-2"><span class="input-group-btn">'+
     '  <button @click="addWorld" class="btn btn-default" type="button">+</button>'+
     '  <button @click="incrementCounter" class="btn btn-default" type="button">+</button>'+
@@ -193,11 +226,31 @@ Vue.filter('zeropad', (value) => {
     } else {
         return '0' + value;
     }
-})
-
-
-var vue = new Vue({
-    el:'#app',
-    data: data,
 });
 
+
+var vm = new Vue({
+    el:'#app',
+    data: data,
+    created: function(){
+        loadJSON(function(response) {
+           var actual_JSON = JSON.parse(response);
+           data.worlds = actual_JSON.worlds;
+        });        
+        
+    },   
+});
+
+function loadJSON(callback) {   
+
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'data.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+}
