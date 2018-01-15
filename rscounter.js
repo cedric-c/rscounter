@@ -97,7 +97,7 @@ Vue.component('worlds-component',{
     },
     template:
     '<ul>'+
-        '<counter-component v-for="world in filtered(worlds)" :data="world" :key="world.id"></counter-component>'+
+        '<counter-component v-for="world in filtered(worlds)" :data="world" :key="world.number"></counter-component>'+
     '</ul>'
 });
 
