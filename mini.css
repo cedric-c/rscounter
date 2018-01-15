@@ -9,7 +9,14 @@
     list-style: none;
     border-radius: 3px;
     margin: 0.2em;
-    padding: 0.8em;
+    /* Apply to all four sides */
+    /* vertical | horizontal */
+    /* top | horizontal | bottom */
+    /* top | right | bottom | left */    
+    padding: 0 0.3em 1.8em 0.8em;
+    /*padding: 0.8em;*/
+    
+
     -o-transition:.4s;
     -ms-transition:.4s;
     -moz-transition:.4s;
@@ -18,32 +25,37 @@
     transition:.4s;
 }
 
-.counter5{
+.counterRed{
     color: #E60033;
     border: 1px solid #E60033;
     background: rgba(230,0,51,0.1);
 }
 .counter4{background-color: #E86100;}
-.counter3{
+.counterOrange{
     color: #F39800;
     border: 1px solid #F39800;
     background: rgba(252,127,0,0.1);
 }
 .counter2{background-color: #FFF100;}
 .counter1{background-color: #CFDB00;}
-.counter0{
+.counterGreen{
     color: #4BB022;
     background: rgba(75,176,34,0.1);
     border: 1px solid #4BB022
     
 }
+.counterWhite{
+    color: #9b9c9f;
+    background: rgba(200,200,200,0.1);
+    border: 1px solid #9b9c9f
+    
+}
 /*orangetext f4a61a*/
 /*orangeback 4a433b*/
-.counterPrimed{
-    color: #4BB022;
-    background: rgba(75,176,34,0.1);
-    border: 1px solid #4BB022
-    
+.counterPaused{
+    color: #838487;
+    /*background: rgba(75,176,34,0.1);*/
+    border: 1px solid #838487;
 }
 
 .counter:hover{
@@ -54,11 +66,6 @@
 .valueMembers{
     
 }
-/* timer */
-.valueTimer{
-    font-size: 2.1em;
-}
-
 .valueStatus{
     
 }
@@ -69,10 +76,31 @@
 
 .timer{
     font-size: 1.5em;
+    padding-left: 40px;
+    /*position:3px;*/
+}
+button:focus{
+    outline:0;
 }
 
 .worldNumber{
     margin:0px;
+    font-size:2.4em;
+    position:absolute;
+    font-weight:bold;
+    z-index:-1;
+    /*color:red;*/
+    /*background:hsl(210,13%,60%);*/
+    /*color: hsl(120,100%,5%);*/
+    color:grey;
+    /*background: hsl(0,50%,45%);*/
+    opacity:.28;
+    /*text-shadow: 0 1px 1px hsla(0,0%,100%, .8);*/
+    /*text-shadow: 0 -1px 1px black;*/
+
+    /* top | right | bottom | left */    
+    padding: 0.45em 0.3em 0 0;
+    
 }
 
 .unsel{
@@ -86,4 +114,14 @@
 
 body{
     background-color:#36393f;
+}
+h1{
+    color:grey;
+}
+.lead{
+    color:grey;
+    opacity: .6;
+}
+.page-header{
+    border-bottom: 1px solid grey;
 }

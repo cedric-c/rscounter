@@ -1,21 +1,47 @@
-{
+{   
+    "worlds1":[
+        {
+            "number": "F",
+            "location": "United States",
+            "status": "Free",
+            "description": "Trade"
+        },
+        {
+            "number": "mPvP",
+            "location": "United States",
+            "status": "Members",
+            "description": "PVP World"
+        },
+        {
+            "number": "fPVP",
+            "location": "United States",
+            "status": "Free",
+            "description": "PVP World"
+        },
+        {
+            "number": "M",
+            "location": "United Kingdom",
+            "status": "Members",
+            "description": "Trade"
+        }
+    ],
     "worlds": [{
             "number": "1",
             "location": "United States",
             "status": "Free",
-            "description": "Trade - Free"
+            "description": "Trade"
         },
         {
             "number": "2",
             "location": "United Kingdom",
             "status": "Members",
-            "description": "Trade - Members"
+            "description": "Trade"
         },
         {
             "number": "3",
             "location": "Germany",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "4",
@@ -39,7 +65,7 @@
             "number": "7",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "8",
@@ -75,7 +101,7 @@
             "number": "13",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "14",
@@ -87,7 +113,7 @@
             "number": "15",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "16",
@@ -111,19 +137,19 @@
             "number": "19",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "20",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "21",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "22",
@@ -141,7 +167,7 @@
             "number": "24",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "25",
@@ -165,7 +191,7 @@
             "number": "28",
             "location": "Germany",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "29",
@@ -183,13 +209,13 @@
             "number": "31",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "32",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "33",
@@ -207,7 +233,7 @@
             "number": "35",
             "location": "Germany",
             "status": "Free",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "36",
@@ -231,13 +257,13 @@
             "number": "39",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "40",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "41",
@@ -255,7 +281,7 @@
             "number": "43",
             "location": "Germany",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "44",
@@ -279,13 +305,13 @@
             "number": "47",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "48",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "49",
@@ -303,7 +329,7 @@
             "number": "51",
             "location": "Germany",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "52",
@@ -327,19 +353,19 @@
             "number": "55",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "56",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "57",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "58",
@@ -351,13 +377,13 @@
             "number": "59",
             "location": "Germany",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "60",
             "location": "Germany",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "61",
@@ -393,7 +419,7 @@
             "number": "68",
             "location": "Germany",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "69",
@@ -417,7 +443,7 @@
             "number": "74",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "75",
@@ -429,7 +455,7 @@
             "number": "76",
             "location": "Germany",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "77",
@@ -441,7 +467,7 @@
             "number": "78",
             "location": "United States",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "81",
@@ -453,7 +479,7 @@
             "number": "82",
             "location": "United Kingdom",
             "status": "Free",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "83",
@@ -465,7 +491,7 @@
             "number": "84",
             "location": "Germany",
             "status": "Free",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "85",
@@ -489,19 +515,19 @@
             "number": "88",
             "location": "Australia",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "89",
             "location": "Australia",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "90",
             "location": "Australia",
             "status": "Members",
-            "description": "-"
+            "description": ""
         },
         {
             "number": "91",
@@ -525,7 +551,7 @@
             "number": "94",
             "location": "United States",
             "status": "Free",
-            "description": "-"
+            "description": ""
         }
     ]
 }
