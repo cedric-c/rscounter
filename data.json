@@ -25,7 +25,8 @@
             "description": "Trade"
         }
     ],
-    "worlds": [{
+    "worlds": [
+        {
             "number": "1",
             "location": "United States",
             "status": "Free",

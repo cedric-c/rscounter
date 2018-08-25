@@ -88,7 +88,7 @@ button:focus{
     font-size:2.4em;
     position:absolute;
     font-weight:bold;
-    z-index:-1;
+    /*z-index:-1;*/
     /*color:red;*/
     /*background:hsl(210,13%,60%);*/
     /*color: hsl(120,100%,5%);*/
@@ -112,9 +112,18 @@ button:focus{
     user-select: none;
 }
 
+#app.night{
+    background-color:#36393f;
+}
+
+#app.day{
+    background-color:#FFF;
+}
+
 body{
     background-color:#36393f;
 }
+
 h1{
     color:grey;
 }
