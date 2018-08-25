@@ -17,32 +17,28 @@
         
         <template id="action-bar">
             <div class="row">
-                <div class="btn-group" data-toggle="buttons">
-                    
-                    <label :class="[nightMode ? 'btn btn-primary active' : 'btn btn-primary']">
-                        <input type="checkbox" autocomplete="off" @click="toggleTheme" >
-                        {{ nightMode ? 'Dark' : 'Light' }}
-                    </label>
-                    
-                    <label :class="[membersOnly ? 'btn btn-primary active' : 'btn btn-primary']">
-                        <input type="checkbox" autocomplete="off" @click="toggleMembers">
-                        Members Only
+                <div class="form-inline">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label :class="[nightMode ? 'btn btn-primary active' : 'btn btn-primary']">
+                            <input type="checkbox" autocomplete="off" @click="toggleTheme" >
+                            {{ nightMode ? 'Dark' : 'Light' }}
+                        </label>
+                        <label :class="[membersOnly ? 'btn btn-primary active' : 'btn btn-primary']">
+                            <input type="checkbox" autocomplete="off" @click="toggleMembers">
+                            Members Only
 
-                    </label>
+                        </label>
+                        <label :class="[removePVP ? 'btn btn-primary active' : 'btn btn-primary']">
+                            <input type="checkbox" autocomplete="off" @click="togglePVP">
+                            Remove PvP Worlds
+                        </label>
+                    </div>
                     
-                    <label :class="[removePVP ? 'btn btn-primary active' : 'btn btn-primary']">
-                        <input type="checkbox" autocomplete="off" @click="togglePVP">
-                        Remove PvP Worlds
-                    </label>
-                                        
-                </div>
-                
-                <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon3">Interval</span>
-                  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" v-model="interval" value="12" placeholder="minutes">
-                  <div class="input-group-btn">
-                    <button type="button" @click="refreshInterval" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-refresh"></i></span></button>
-                  </div>
+
+                    <div class="input-group">
+                        <div class="input-group-addon" id="basic-addon3">Interval</div>
+                        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" v-model="interval" placeholder="minutes">
+                    </div>
                 </div>
                 
             </div>
@@ -51,22 +47,14 @@
         
         <div id="app" class="container" :class="[nightMode ? 'night' : 'day']">
             <div class="page-header">
-                <h1>counter</h1>
-                <p class="lead">v.0.1</p>
+                <h1>World Mining Counter</h1>
+                <p class="lead">v.0.2</p>
             </div>
             <div id="info" class="row">
                 <div class="col-md-12">
                 </div>
             </div>
-            <div class="row">            
-                <div class="col-md-12">
-        <div class="row">
-        <div class="col-sm-12">
             <action-bar-component></action-bar-component>
-        </div>
-    </div>
-                </div>
-            </div>
             <div class="row">
                 <div id="counters" class="col-md-12">
                     <worlds-component></worlds-component>

@@ -12,12 +12,10 @@ const WORLD = {
     FREE: 'Free',
 }
 
-
-
 var data = {
     // members: null,
     // number: null,
-    timer: 720,
+    // timer: this.calculatedInterval,
     // status: null,
     worlds: [
     {number:"1",location:"United States",status:"Free",description:"Trade"},
@@ -113,7 +111,7 @@ var data = {
     membersOnly: true,
     removePVP: true,
     nightMode: true,
-
+    interval: 12, // default interval (minutes)
 };
 
 Vue.component('worlds-component',{
@@ -182,16 +180,18 @@ Vue.component('worlds-component',{
         },
     },
     computed: {
-        
+        intervalValue: function() {
+            return data.interval * 60;
+        }
     },
     template:
     '<ul>'+
-        '<counter-component v-for="world in filtered(worlds)" :data="world" :key="world.number"></counter-component>'+
+        '<counter-component v-for="world in filtered(worlds)" :data="world" :key="world.number" :interval=intervalValue></counter-component>'+
     '</ul>'
 });
 
 Vue.component('counter-component',{
-    props:['data'],
+    props:['data', 'interval'],
     data: function() {
         return {
             ready: false,
@@ -237,37 +237,41 @@ Vue.component('counter-component',{
             // '<label>Member:</label> <p class="valueMembers">{{data.members}}</p>'+
             // '<label>Time:</label> <p class="valueTimer">{{data.timer}}</p>'+
             '<p class="worldNumber unsel">{{data.number}}</p>'+
-            '<timer-component :data="data"></timer-component>'+
+            '<timer-component :world="data" :intervalValue="interval"></timer-component>'+
             // '<label>Status:</label> <p class="valueStatus">{{data.status}}</p>'+
         '</li>'
 });
 
 Vue.component('timer-component',{
-    props:['data'],
-    // props:['counter', 'hours', 'mins', 'secs'],
-    // , 'counter', 'hours', 'mins', 'secs'
+    props:['intervalValue'],
     data: function(){
+        
         return {
-            counter: 720,
+            counter: this.intervalValue,
             counting: false,
-            interval: null,
             paused: null,
             clear: false,
             
         };
     },
-    // mounted() {
-        // setInterval(this.decrease, 1000);
-    // },
+    watch: {
+        intervalValue: function(newV, oldV) {
+            if(!this.counting && !this.paused)
+                this.counter = newV;
+        },
+    },
     methods:{
         reset:function(){
-            clearInterval(this.interval);
-            this.counter = 720;
+            clearInterval(this.intervalValue);
+            this.counter = this.intervalValue;
             this.counting=false;
             this.interval=null;
             this.paused=false;
             this.clear=false;
             return;
+        },
+        updateInterval: function(){
+            console.log('interval updated');
         },
         decrease:function(){
             var self = this;
@@ -327,9 +331,8 @@ Vue.component('timer-component',{
             // }
         },
     },
-    created: function(){
+    created: function(v){
         this.$parent.$on('toggleTimer', this.activate);
-        // this.$parent.$on('toggleTimer', this.decrease);
     },
     computed:{
         hour:{
@@ -358,8 +361,6 @@ Vue.component('timer-component',{
         },
     },
     template: '<span class="timer unsel">'+
-    // template: '<span v-on:toggleTimer="decrease" class="timer unsel">'+
-    // '{{hour | zeropad}}:'+
     '{{minute | zeropad}}:'+
     '{{second | zeropad}}'+
     '</span>'
@@ -367,6 +368,7 @@ Vue.component('timer-component',{
 });
 
 Vue.component('action-bar-component',{
+    template: '#action-bar',
     data: function(){
         return data;
     },
@@ -387,6 +389,9 @@ Vue.component('action-bar-component',{
             this.worlds.push(world);
             this.clear();
         },
+        refreshInterval: function(){
+            vm.$emit('updateInterval', this.interval);
+        },
         incrementCounter: function(){
             // this.timer++;
         },
@@ -403,41 +408,6 @@ Vue.component('action-bar-component',{
         },
         
     },
-  template:
-  // '<div class="input-group">'+
-  '<div class="row">'+
-    // '<div class="col-sm-2"><input v-model="number" @keyup.enter="addWorld" placeholder="world number" type="text" class="form-control"></div>'+
-    
-    // '<div class="col-sm-2"><input v-model="timer" @keyup.enter="addWorld" placeholder="timer" type="text" class="form-control"></div>'+
-    
-    // '<div class="col-sm-2"><input v-model="members" @keyup.enter="addWorld" placeholder="members" type="text" class="form-control"></div>'+
-    // '<div class="col-sm-2"><input v-model="status" @keyup.enter="addWorld" placeholder="status" type="text" class="form-control"></div>'+
-    '<div class="col-sm-12">'+
-        '<div class="btn-group" data-toggle="buttons">'+
-            '<label class="btn btn-primary" :class="{active:nightMode}">'+
-                '<input type="checkbox" autocomplete="off" @click="toggleTheme">'+
-                '{{nightMode ? \'Night\' : \'Day\'}}'+
-            '</label>'+
-            '<label class="btn btn-primary" :class="{active:membersOnly}">'+
-                '<input type="checkbox" autocomplete="off" @click="toggleMembers">'+
-                'Members Only'+
-            '</label>'+
-            '<label class="btn btn-primary" :class="{active:removePVP}">'+
-                '<input type="checkbox" autocomplete="off" @click="togglePVP">'+
-                'Remove PvP Worlds'+
-            '</label>'+
-            // '<label class="btn btn-primary">'+
-                // '<input type="checkbox" autocomplete="off">'+
-                // ''+
-            // '</label>'+
-        '</div>'+
-        // '<span class="input-group-btn">'+
-    // '  <button @click="addWorld" class="btn btn-default" type="button">+</button>'+
-    // '  <button @click="incrementCounter" class="btn btn-default" type="button">+</button>'+
-        // '</span>'+
-    '</div>'+
-  '</div>'//+
-  // '</div>'
 });
 
 Vue.filter('zeropad', (value) => {
